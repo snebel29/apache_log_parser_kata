@@ -57,8 +57,16 @@ puts "Unique Ip's: #{ips.uniq.count}"
 
 # Largest object served
 larger_object_size = -1
-requests.each { |h| larger_object_size = h['size'].to_i if larger_object_size < h['size'].to_i }
-puts "Larger object size is: #{larger_object_size}"
+larger_object = nil
+requests.each do |h|
+  size = h['size'].to_i
+  obj = h
+  if larger_object_size < size
+    larger_object_size = size
+    larger_object = h
+  end
+end
+puts "Larger object is: #{larger_object}"
 
 # Average object size
 total = 0
