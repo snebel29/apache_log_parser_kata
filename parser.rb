@@ -38,13 +38,13 @@ end
 
 requests = parse(File.readlines('image-access.log'))
 # How many requests were successful? 
-successfull_request = requests.select { |h| h['code'].to_i < 400 }
+successfull_request = requests.select { |h| h['code'].to_i < 300 }
 
 puts "Total requests: #{requests.count}"
 puts "Succesfull requests: #{successfull_request.count}"
 
 # Unsucessfull requests?
-unsuccessfull_request = requests.select { |h| h['code'].to_i > 400 }
+unsuccessfull_request = requests.select { |h| h['code'].to_i >= 300 }
 puts "Unsuccesfull requests: #{unsuccessfull_request.count}"
 unsuccessfull_request.each do |r|
   puts "#{' '*3} uri: #{r['uri']} error_code: #{r['code']}"
